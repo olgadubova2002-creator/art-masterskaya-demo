@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow" data-publish>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>АРТ-мастерская · рисование для детей в Туле</title>
+<meta name="description" content="Студия рисования для детей в Туле: группы до 5 человек, все материалы предоставляются. ул. Михеева, 17.">
+<meta property="og:title" content="АРТ-мастерская · рисование для детей в Туле">
+<meta property="og:description" content="Группы до 5 человек, все материалы предоставляются. ул. Михеева, 17.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="site.css">
+<meta property="og:image" content="assets/og.jpg">
+<link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500&family=Onest:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f7f6; --surface: #e6edea; --ink: #1b1d22; --muted: #4a5058;
+    --accent: #f26a1b; --accent-ink: #1b1d22;
+    --blue: #1f5f94; --green: #2f7d3a; --white: #ffffff;
+    --m: clamp(16px, 4vw, 56px);
+    --f-display: "Unbounded", "Onest", system-ui, sans-serif;
+    --f-text: "Onest", system-ui, sans-serif;
+    --step-small: clamp(1rem, 0.98rem + 0.1vw, 1.0625rem);
+    --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+    --step-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+    --step-head: clamp(1.75rem, 1.1rem + 2.6vw, 3.25rem);
+    --ease: cubic-bezier(.2, .7, .2, 1);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 var(--step-body)/1.55 var(--f-text); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; }
+  h1, h2, h3, p, ul, ol { margin: 0; padding: 0; }
+  ul, ol { list-style: none; }
+  :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+  ::selection { background: var(--accent); color: var(--accent-ink); }
+  .display { font-family: var(--f-display); font-weight: 500; letter-spacing: -0.035em; line-height: 1.08; }
+  h2.display { font-size: var(--step-head); }
+
+  /* кнопка: форма мотива – круглая плашка */
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 56px; padding: 0 2rem; border: 0; border-radius: 999px; background: var(--accent); color: var(--accent-ink); font: 500 var(--step-body)/1 var(--f-text); text-decoration: none; cursor: pointer; transition: transform .2s var(--ease), background-color .2s var(--ease); }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:active { transform: scale(.97); }
+  .btn--dark { background: var(--ink); color: var(--white); }
+  .btn--dark:hover { background: #000; }
+
+  /* шапка */
+  .nav { position: absolute; z-index: 5; inset: 0 0 auto 0; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 20px var(--m); }
+  .brand { display: inline-flex; align-items: center; gap: .7rem; text-decoration: none; font: 700 1.125rem/1 var(--f-text); }
+  .brand img { width: 44px; height: 44px; border-radius: 50%; }
+  .nav__links { display: flex; gap: 2rem; font-size: var(--step-small); }
+  .nav__links a { text-decoration: none; padding: .5rem 0; transition: opacity .2s; }
+  .nav__links a:hover { opacity: .6; }
+  .nav .btn { min-height: 44px; padding: 0 1.25rem; font-size: var(--step-small); background: var(--ink); color: var(--white); }
+
+  /* 1 · герой: огромное пятно, обрезанное экраном */
+  .hero { position: relative; min-height: 92svh; overflow: hidden; display: grid; align-items: center; padding: 110px var(--m) 64px; }
+  .hero__disc { position: absolute; z-index: 0; width: 120vh; height: 120vh; border-radius: 50%; background: var(--accent); left: calc(78vw - 60vh); top: calc(55svh - 60vh); clip-path: circle(0% at 50% 50%); animation: disc 1.2s var(--ease) .1s forwards; }
+  @keyframes disc { to { clip-path: circle(72% at 50% 50%); } }
+  .hero__copy { position: relative; z-index: 2; max-width: min(46rem, 52vw); }
+  .hero h1 { font-size: clamp(2.2rem, 6vw, 6rem); line-height: 1.02; }
+  .hero__sub { margin-top: 1.75rem; font-size: var(--step-lead); max-width: 30ch; line-height: 1.35; }
+  .hero .btn { margin-top: 2.25rem; }
+  .hero__hint { margin-top: 1.25rem; font-size: var(--step-small); color: var(--muted); }
+  .hero__logo { position: absolute; z-index: 1; width: min(30vh, 22vw); aspect-ratio: 1; border-radius: 50%; right: 12vw; top: 50%; translate: 0 -50%; rotate: -6deg; background: var(--white); padding: 0; }
+  .hero__logo img { width: 100%; height: 100%; border-radius: 50%; }
+
+  /* вход: части секции поднимаются по очереди */
+  .rise { opacity: 0; transform: translateY(24px); transition: opacity .7s var(--ease), transform .7s var(--ease); transition-delay: calc(var(--i, 0) * 80ms); }
+  .rise.in { opacity: 1; transform: none; }
+  .hero .rise { animation: rise .8s var(--ease) both; animation-delay: calc(.25s + var(--i, 0) * 90ms); opacity: 0; }
+  @keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+
+  section { padding: clamp(72px, 9vw, 160px) var(--m) 0; }
+  .hero + section { padding-top: clamp(40px, 5vw, 96px); }
+  .sec-head { display: flex; justify-content: space-between; align-items: baseline; gap: 2rem; margin-bottom: 2.5rem; }
+  .sec-head p { font-size: var(--step-small); color: var(--muted); max-width: 34ch; text-align: right; }
+
+  /* 2 · направления: две колонки, круглые «пятна» вместо пунктов */
+  .menu { display: grid; grid-template-columns: 1fr 1fr; gap: 36px 64px; }
+  .item { display: grid; grid-template-columns: 72px 1fr; gap: 20px; align-items: start; }
+  .item img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; transition: transform .35s var(--ease); }
+  .item:hover img { transform: rotate(-8deg) scale(1.06); }
+  .item h3 { display: flex; justify-content: space-between; gap: 1rem; font: 700 var(--step-body)/1.3 var(--f-text); }
+  .item h3 span { white-space: nowrap; font-weight: 500; }
+  .item p { margin-top: .35rem; font-size: var(--step-small); color: var(--muted); max-width: 38ch; }
+  .item .price-on { color: var(--ink); }
+
+  /* 3 · возраст: диск меняет цвет, список переключает */
+  .age { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 4rem; align-items: center; }
+  .age__list { display: grid; gap: .25rem; }
+  .age__list h2 { margin-bottom: 1.25rem; color: var(--muted); }
+  .age__btn { display: block; width: 100%; text-align: left; border: 0; background: none; padding: .35rem 0; cursor: pointer; font: 500 var(--step-head)/1.15 var(--f-display); letter-spacing: -0.03em; color: var(--muted); transition: color .25s, transform .25s var(--ease); }
+  .age__btn:hover { color: var(--ink); }
+  .age__btn[aria-pressed="true"] { color: var(--ink); transform: translateX(10px); }
+  .age__stage { position: relative; aspect-ratio: 1; width: min(100%, 64vh); justify-self: end; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; padding: 12%; transition: background-color .4s var(--ease), color .4s var(--ease); }
+  .age__stage[data-c="blue"], .age__stage[data-c="green"] { color: var(--white); }
+  .age__stage[data-c="blue"] { background: var(--blue); }
+  .age__stage[data-c="green"] { background: var(--green); }
+  .age__fact { font: 500 var(--step-lead)/1.35 var(--f-text); text-align: center; max-width: 18ch; }
+
+  /* 4 · стена из плиток */
+  .wall { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 0 8px; margin: 0 calc(var(--m) * -1); }
+  .tile { position: relative; aspect-ratio: 1; display: grid; place-items: center; overflow: hidden; border-radius: 0; }
+  .tile b { font: 500 var(--step-head)/1 var(--f-display); letter-spacing: -0.04em; }
+  .tile span { position: absolute; left: 10px; right: 10px; bottom: 18px; text-align: center; font-size: var(--step-small); font-weight: 500; }
+  .tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--ease); }
+  .tile:hover img { transform: scale(1.06); }
+  .t1 { background: var(--accent); color: var(--accent-ink); }
+  .t2 { background: var(--blue); color: var(--white); }
+  .t3 { background: var(--green); color: var(--white); }
+  .t4 { background: var(--ink); color: var(--white); }
+
+  /* 5 · вопросы: картотека */
+  .faq { display: grid; grid-template-columns: 4fr 8fr; gap: 3rem; align-items: start; }
+  .faq__left { grid-column: 1; position: sticky; top: 32px; display: grid; gap: 2.5rem; }
+  .faq__disc { display: grid; place-items: center; aspect-ratio: 1; width: min(100%, 22rem); border-radius: 50%; background: var(--green); color: var(--white); text-decoration: none; text-align: center; padding: 14%; font: 500 var(--step-lead)/1.3 var(--f-text); transition: transform .3s var(--ease); }
+  .faq__disc:hover { transform: rotate(-4deg) scale(1.03); }
+  .cards { grid-column: 2; display: grid; }
+  .card { margin-top: -40px; position: relative; }
+  .card:first-child { margin-top: 0; }
+  .card__tab { display: block; width: 100%; border: 0; text-align: left; cursor: pointer; background: none; padding: 0; font: inherit; color: inherit; }
+  .card__shape { display: block; padding: 56px 28px 56px; clip-path: polygon(0 40px, 8px 40px, 8px 0, 188px 0, 200px 40px, 100% 40px, 100% 100%, 0 100%); transition: filter .2s; }
+  .card:nth-child(3n+1) .card__shape { background: var(--accent); color: var(--accent-ink); }
+  .card:nth-child(3n+2) .card__shape { background: var(--blue); color: var(--white); }
+  .card:nth-child(3n) .card__shape { background: var(--green); color: var(--white); }
+  .card__topic { position: absolute; top: 9px; left: 26px; font-size: var(--step-small); font-weight: 700; }
+  .card__q { display: block; font: 500 var(--step-body)/1.3 var(--f-text); }
+  .card__a { display: none; margin-top: .9rem; font-size: var(--step-body); max-width: 50ch; }
+  .card.open .card__a { display: block; }
+  .card.open { margin-bottom: 40px; }
+
+  /* 6 · контакт: купон */
+  .coupon { position: relative; display: grid; grid-template-columns: 1fr 1fr; background: var(--blue); color: var(--white); border-radius: 14px; margin: 0 auto; max-width: 1100px; }
+  .coupon { clip-path: polygon(0 0, calc(46% - 14px) 0, 46% 14px, calc(46% + 14px) 0, 100% 0, 100% 100%, calc(46% + 14px) 100%, 46% calc(100% - 14px), calc(46% - 14px) 100%, 0 100%); }
+  .coupon__l { padding: 48px; display: grid; align-content: space-between; gap: 2rem; border-right: 5px dotted var(--bg); }
+  .coupon__l h2 { font-size: var(--step-head); }
+  .coupon__l p { font-size: var(--step-body); max-width: 34ch; }
+  .coupon__r { padding: 48px; display: grid; gap: 12px; align-content: center; }
+  .coupon__r .btn { min-height: 64px; justify-content: space-between; width: 100%; border-radius: 12px; }
+  .coupon__r .btn--dark { background: var(--ink); }
+  .coupon__r address { font-style: normal; margin-top: .75rem; font-size: var(--step-small); }
+
+  /* 7 · подвал: знак, собранный блоками */
+  footer { margin-top: clamp(80px, 12vw, 200px); background: var(--green); color: var(--white); padding: 48px var(--m) 32px; }
+  .mark { margin-top: 0; display: flex; align-items: flex-end; gap: 4px; height: 34svh; min-height: 200px; }
+  .mark .ml { flex: 1; display: block; background: var(--bg); color: var(--green); font: 500 clamp(3rem, 14vw, 14rem)/.9 var(--f-display); font-style: normal; text-align: center; padding-top: .05em; }
+  .mark .ml:nth-child(1) { height: 100%; background: var(--accent); color: var(--ink); } .mark .ml:nth-child(2) { height: 82%; background: var(--blue); color: var(--white); } .mark .ml:nth-child(3) { height: 94%; background: var(--ink); color: var(--white); }
+  .mark .m-dot { flex: 0 0 auto; aspect-ratio: 1; height: 60%; border-radius: 50%; background: var(--accent); }
+  .foot { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.5rem; margin-bottom: 3rem; font-size: var(--step-small); }
+  .foot nav { grid-column: 1 / 9; display: flex; flex-wrap: wrap; gap: .5rem 2.5rem; }
+  .foot nav a { text-decoration: none; padding: .35rem 0; }
+  .foot nav a:hover { text-decoration: underline; }
+  .foot address { grid-column: 9 / 13; font-style: normal; display: grid; gap: .35rem; }
+  .foot small { grid-column: 1 / 13; margin-top: 1.5rem; font-size: var(--step-small); display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; align-items: center; }
+
+  @media (max-width: 860px) {
+    .nav__links { display: none; }
+    .hero { align-items: start; padding-top: 15svh; }
+    .hero__copy { max-width: none; }
+    .hero h1 { font-size: clamp(1.9rem, 9vw, 2.6rem); }
+    .hero__sub { font-size: 1.125rem; }
+    .hero__disc { width: 130vw; height: 130vw; left: -15vw; top: 56svh; }
+    .hero__logo { width: 34vw; right: 8vw; top: auto; bottom: 18svh; translate: none; }
+    .hero .btn { margin-top: 1.5rem; }
+    .sec-head { flex-direction: column; gap: .75rem; }
+    .sec-head p { text-align: left; }
+    .menu { grid-template-columns: 1fr; gap: 28px; }
+    .item { grid-template-columns: 52px 1fr; }
+    .item img { width: 52px; height: 52px; }
+    .age { grid-template-columns: 1fr; gap: 2rem; min-height: 0; }
+    .age__stage { order: -1; width: 86vw; justify-self: center; }
+    .age__btn { font-size: 1.75rem; }
+    .wall { grid-template-columns: repeat(2, 1fr); gap: 6px; padding: 0 6px; }
+    .tile b { font-size: 1.75rem; }
+    .faq { grid-template-columns: 1fr; }
+    .faq__left, .cards { grid-column: 1; position: static; }
+    .faq__disc { width: 70vw; justify-self: start; }
+    .card__shape { clip-path: polygon(0 40px, 8px 40px, 8px 0, 108px 0, 120px 40px, 100% 40px, 100% 100%, 0 100%); padding: 52px 20px 56px; }
+    .coupon { grid-template-columns: 1fr; clip-path: none; }
+    .coupon__l { padding: 32px 24px; border-right: 0; border-bottom: 5px dotted var(--bg); }
+    .coupon__r { padding: 24px; }
+    .foot nav, .foot address { grid-column: 1 / 13; }
+    .mark { height: 22svh; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero__disc { animation: none; clip-path: none; }
+    .hero .rise, .rise { animation: none; opacity: 1; transform: none; transition: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="#top"><img src="assets/logo.png" alt="" width="44" height="44">АРТ-мастерская</a>
+  <nav class="nav__links" aria-label="Разделы">
+    <a href="#napravleniya">Направления</a>
+    <a href="#vozrast">Возраст</a>
+    <a href="#voprosy">Вопросы</a>
+    <a href="#kontakty">Контакты</a>
+  </nav>
+  <a class="btn" href="https://vk.me/club177558097" target="_blank" rel="noopener">Записаться</a>
+</header>
+
+<main id="top">
+  <section class="hero" aria-label="Студия рисования для детей" style="padding-top:110px">
+    <div class="hero__disc" aria-hidden="true"></div>
+    <div class="hero__logo rise" style="--i:3" aria-hidden="true"><img src="assets/logo.png" alt="" width="256" height="256"></div>
+    <div class="hero__copy">
+      <h1 class="display rise" style="--i:0">Рисование для детей</h1>
+      <p class="hero__sub rise" style="--i:1">Студия в Туле. Группы до 5 человек, все материалы предоставляются.</p>
+      <a class="btn rise" style="--i:2" href="https://vk.me/club177558097" target="_blank" rel="noopener">Записаться на пробное</a>
+      <p class="hero__hint rise" style="--i:3">Цены и расписание – по запросу. ул. Михеева, 17.</p>
+    </div>
+  </section>
+
+  <section id="napravleniya" aria-labelledby="h-napr">
+    <div class="sec-head rise">
+      <h2 class="display" id="h-napr">Чему учим</h2>
+      <p>Классическое и современное изобразительное искусство, в темпе каждого ученика.</p>
+    </div>
+    <ul class="menu">
+      <li class="item rise" style="--i:0"><img src="assets/img-risunok.jpg" alt="Лист с карандашным наброском и оранжевым акварельным пятном" width="72" height="72" loading="lazy"><div><h3>Рисунок <span>по запросу</span></h3><p>Мелкая моторика и воображение у малышей, основы академического рисунка для среднего и старшего возраста.</p></div></li>
+      <li class="item rise" style="--i:1"><img src="assets/img-zhivopis.jpg" alt="Акварельная палитра и кисть" width="72" height="72" loading="lazy"><div><h3>Живопись <span>по запросу</span></h3><p>Знакомство с классическим и современным искусством, работы на конкурсы.</p></div></li>
+      <li class="item rise" style="--i:2"><img src="assets/img-kompoziciya.jpg" alt="Три листа с цветными акварельными пятнами" width="72" height="72" loading="lazy"><div><h3>Композиция <span>по запросу</span></h3><p>Основы композиции: как собрать рисунок и воплотить свою идею.</p></div></li>
+      <li class="item rise" style="--i:3"><img src="assets/img-grafika.jpg" alt="Линеры и лист с графическими линиями" width="72" height="72" loading="lazy"><div><h3>Графика и дизайн <span>по запросу</span></h3><p>Разные техники графики и основы дизайна, прикладные навыки.</p></div></li>
+      <li class="item rise" style="--i:4"><img src="assets/img-baro.jpg" alt="Гипсовый барельеф в виде ботанической веточки" width="72" height="72" loading="lazy"><div><h3>Мастер-класс «Ботанический барельеф» <span>2500&nbsp;₽</span></h3><p>3 часа. Техника гипсового литья: уникальное произведение для домашнего декора.</p></div></li>
+    </ul>
+  </section>
+
+  <section id="vozrast" aria-labelledby="h-age">
+    <div class="age">
+      <div class="age__list rise">
+        <h2 class="display" id="h-age">Для какого возраста</h2>
+        <button class="age__btn" type="button" data-c="orange" data-t="Развиваем мелкую моторику и воображение, снимаем эмоциональное напряжение." aria-pressed="true">Дошкольники</button>
+        <button class="age__btn" type="button" data-c="blue" data-t="Прикладные навыки и первые техники рисунка в небольшой группе." aria-pressed="false">Младшие школьники</button>
+        <button class="age__btn" type="button" data-c="green" data-t="Основы академического рисунка, живописи и композиции." aria-pressed="false">Средний возраст</button>
+        <button class="age__btn" type="button" data-c="orange" data-t="Академический рисунок, живопись, композиция и основы дизайна." aria-pressed="false">Старший возраст</button>
+      </div>
+      <div class="age__stage rise" data-c="orange" style="--i:1"><p class="age__fact" aria-live="polite">Развиваем мелкую моторику и воображение, снимаем эмоциональное напряжение.</p></div>
+    </div>
+  </section>
+
+  <section aria-label="Коротко о студии">
+    <div class="wall">
+      <div class="tile t1 rise"><b>до 5</b><span>человек в группе</span></div>
+      <div class="tile rise" style="--i:1"><img src="assets/img-raboty.jpg" alt="Листы с яркими акварельными пятнами сохнут на столе" width="600" height="600" loading="lazy"></div>
+      <div class="tile t2 rise" style="--i:2"><b>всё</b><span>материалы включены</span></div>
+      <div class="tile t3 rise" style="--i:3"><b>темп</b><span>у каждого свой</span></div>
+      <div class="tile rise" style="--i:0"><img src="assets/img-kraski.jpg" alt="Акварельные краски, кисти и банки с водой" width="600" height="600" loading="lazy"></div>
+      <div class="tile t4 rise" style="--i:1"><b>Тула</b><span>ул. Михеева, 17</span></div>
+      <div class="tile t1 rise" style="--i:2"><b>кисти</b><span>краски, бумага</span></div>
+      <div class="tile rise" style="--i:3"><img src="assets/img-studiya.jpg" alt="Светлая студия с мольбертами у окна" width="600" height="600" loading="lazy"></div>
+    </div>
+  </section>
+
+  <section id="voprosy" aria-labelledby="h-faq">
+    <div class="faq">
+      <div class="faq__left"><h2 class="display rise" id="h-faq">Вопросы родителей</h2><a class="faq__disc rise" style="--i:1" href="https://vk.me/club177558097" target="_blank" rel="noopener"><span>Остались вопросы? Напишите нам</span></a></div>
+      <div class="cards">
+        <div class="card open"><button class="card__tab" type="button" aria-expanded="true"><span class="card__shape"><span class="card__topic">Группа</span><span class="card__q">Сколько детей в группе?</span><span class="card__a">До 5 человек. Поэтому работа идёт индивидуально с каждым учеником, в его темпе и с учётом его возможностей.</span></span></button></div>
+        <div class="card" style="margin-left:70px"><button class="card__tab" type="button" aria-expanded="false"><span class="card__shape"><span class="card__topic">Материалы</span><span class="card__q">Нужно ли что-то приносить?</span><span class="card__a">Нет. Все материалы предоставляются студией.</span></span></button></div>
+        <div class="card" style="margin-left:140px"><button class="card__tab" type="button" aria-expanded="false"><span class="card__shape"><span class="card__topic">Цены</span><span class="card__q">Сколько стоит?</span><span class="card__a">Цены на занятия – по запросу, они зависят от возраста и группы. Мастер-класс «Ботанический барельеф» – 2500 ₽, 3 часа.</span></span></button></div>
+        <div class="card" style="margin-left:210px"><button class="card__tab" type="button" aria-expanded="false"><span class="card__shape"><span class="card__topic">Пробное</span><span class="card__q">Как записаться на пробное занятие?</span><span class="card__a">Напишите нам во ВКонтакте или позвоните: +7 910 703-78-22. Условия пробного подскажем при записи.</span></span></button></div>
+        <div class="card" style="margin-left:280px"><button class="card__tab" type="button" aria-expanded="false"><span class="card__shape"><span class="card__topic">Адрес</span><span class="card__q">Где находится студия?</span><span class="card__a">Тула, ул. Михеева, 17, офис 622, 6 этаж. Рядом Рогожинский парк.</span></span></button></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="kontakty" aria-labelledby="h-kont">
+    <div class="coupon">
+      <div class="coupon__l">
+        <h2 class="display" id="h-kont">Запись на пробное</h2>
+        <p>Напишите возраст ребёнка: подскажем про группы, время и цены.</p>
+      </div>
+      <div class="coupon__r">
+        <a class="btn btn--dark" href="https://vk.me/club177558097" target="_blank" rel="noopener"><span>Написать во ВКонтакте</span><span aria-hidden="true">→</span></a>
+        <a class="btn" href="tel:+79107037822"><span>+7 910 703-78-22</span><span aria-hidden="true">→</span></a>
+        <address>Тула, ул. Михеева, 17, офис 622, 6 этаж. Открыто до 19:00.</address>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="foot">
+    <nav aria-label="Нижнее меню"><a href="#napravleniya">Направления</a><a href="#vozrast">Возраст</a><a href="#voprosy">Вопросы</a><a href="https://vk.ru/club177558097" target="_blank" rel="noopener">ВКонтакте</a><a href="https://yandex.ru/maps/org/art_masterskaya/1184985531/" target="_blank" rel="noopener">Яндекс.Карты</a></nav>
+    <address><span>Тула, ул. Михеева, 17, офис 622</span><a href="tel:+79107037822">+7 910 703-78-22</a></address>
+    <small><span>© АРТ-мастерская, Тула</span><a class="btn btn--dark" style="min-height:44px;padding:0 1.25rem;font-size:var(--step-small)" href="https://vk.me/club177558097" target="_blank" rel="noopener">Записаться</a></small>
+  </div>
+  <div class="mark" aria-label="АРТ-мастерская"><span class="ml">А</span><span class="ml">Р</span><span class="ml">Т</span><span class="m-dot" aria-hidden="true"></span></div>
+</footer>
+
+<script>
+(function () {
+  // вход частей секции по очереди
+  var els = document.querySelectorAll('.rise:not(.hero .rise)');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: .15 });
+    els.forEach(function (el) { io.observe(el); });
+  } else { els.forEach(function (el) { el.classList.add('in'); }); }
+
+  // живая вещь: возраст ребёнка
+  var stage = document.querySelector('.age__stage'), fact = document.querySelector('.age__fact');
+  document.querySelectorAll('.age__btn').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.age__btn').forEach(function (x) { x.setAttribute('aria-pressed', x === b); });
+      stage.setAttribute('data-c', b.dataset.c); fact.textContent = b.dataset.t;
+    });
+  });
+
+  // картотека: открыта одна карточка
+  var cards = document.querySelectorAll('.card');
+  cards.forEach(function (c) {
+    c.querySelector('.card__tab').addEventListener('click', function () {
+      cards.forEach(function (x) { var o = x === c; x.classList.toggle('open', o); x.querySelector('.card__tab').setAttribute('aria-expanded', o); });
+    });
+  });
+  if (window.matchMedia('(max-width: 860px)').matches) cards.forEach(function (c, i) { c.style.marginLeft = (i * 24) + 'px'; });
+})();
+</script>
+</body>
+</html>
